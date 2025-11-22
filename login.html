@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light Blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #1e90ff; /* Blue color */
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1e90ff; /* Blue color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #4682b4; /* Darker Blue on hover */
+        }
+
+        .form-toggle {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .form-toggle a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        .form-toggle a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h2 id="form-title">Login</h2>
+    
+    <div id="login-form">
+        <input type="text" id="username" placeholder="Enter username" />
+        <input type="password" id="password" placeholder="Enter password" />
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="signup-form" style="display:none;">
+        <input type="text" id="signup-username" placeholder="Create username" />
+        <input type="password" id="signup-password" placeholder="Create password" />
+        <input type="password" id="confirm-password" placeholder="Confirm password" />
+        <button onclick="signup()">Sign Up</button>
+    </div>
+
+    <div class="form-toggle">
+        <span id="toggle-text">Don't have an account? <a href="javascript:void(0);" onclick="toggleForm()">Sign Up</a></span>
+    </div>
+    
+    <div class="error" id="error-message"></div>
+</div>
+
+<script>
+        function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (username === '' || password === '') {
+            document.getElementById('error-message').textContent = 'Please fill in both fields.';
+        } else {
+            // Save username to localStorage
+            localStorage.setItem("username", username);
+            alert('Logged in successfully!');
+            window.location.href = 'edit-profile.html'; // Redirect to account page
+        }
+    }
+
+
+
+    function signup() {
+        const username = document.getElementById('signup-username').value;
+        const password = document.getElementById('signup-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        if (username === '' || password === '' || confirmPassword === '') {
+            document.getElementById('error-message').textContent = 'Please fill in all fields.';
+        } else if (password !== confirmPassword) {
+            document.getElementById('error-message').textContent = 'Passwords do not match.';
+        } else {
+            // Perform signup actions (e.g., store the credentials)
+            alert('Account created successfully!');
+            window.location.href = 'login.html';
+        }
+    }
+
+    function toggleForm() {
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const formTitle = document.getElementById('form-title');
+        const toggleText = document.getElementById('toggle-text');
+
+        if (loginForm.style.display === 'none') {
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+            formTitle.textContent = 'Login';
+            toggleText.innerHTML = `Don't have an account? <a href="javascript:void(0);" onclick="toggleForm()">Sign Up</a>`;
+        } else {
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+            formTitle.textContent = 'Sign Up';
+            toggleText.innerHTML = `Already have an account? <a href="javascript:void(0);" onclick="toggleForm()">Login</a>`;
+        }
+
+        document.getElementById('error-message').textContent = ''; // Clear any error message
+    }
+</script>
+
+</body>
+</html>

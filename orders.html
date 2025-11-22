@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | ShopNest</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <h2>My Orders</h2>
+    </header>
+    <main id="ordersContainer"></main>
+
+    <script>
+        function loadOrders() {
+            let orders = JSON.parse(localStorage.getItem("orders")) || [];
+            let ordersContainer = document.getElementById("ordersContainer");
+            ordersContainer.innerHTML = ""; 
+
+            if (orders.length === 0) {
+                ordersContainer.innerHTML = "<p>No orders found.</p>";
+                return;
+            }
+
+            orders.forEach((order, orderIndex) => {
+                let orderElement = document.createElement("div");
+                orderElement.classList.add("order-card");
+                
+                let productsHTML = order.products.map(product => `
+                    <div class='order-product'>
+                        <img src="${product.image}" alt="${product.name}" width="80">
+                        <div>
+                            <h3>${product.name}</h3>
+                            <p>₹${product.price}</p>
+                            <p>Status: <span class="status">${order.status || "Processing"}</span></p>
+                        </div>
+                    </div>
+                `).join('');
+                
+                orderElement.innerHTML = `
+                    <div class='order-header'>
+                        <h3>Order ID: ${orderIndex + 1000}</h3>
+                        <p><strong>Customer:</strong> ${order.customerName}</p>
+                        <p><strong>Address:</strong> ${order.customerAddress}</p>
+                        <p><strong>Payment:</strong> ${order.paymentMethod === "cod" ? "Cash on Delivery" : "Online Payment"}</p>
+                    </div>
+                    <div class='order-items'>${productsHTML}</div>
+                    <div class='tracking'>
+                        <p>Shipment Tracking:</p>
+                        <progress value="${order.tracking || 25}" max="100"></progress>
+                        <p>${getTrackingStatus(order.tracking || 25)}</p>
+                    </div>
+                    <button onclick="cancelOrder(${orderIndex})">Cancel Order</button>
+                `;
+                ordersContainer.appendChild(orderElement);
+            });
+        }
+
+        function getTrackingStatus(progress) {
+            if (progress < 30) return "Processing";
+            if (progress < 60) return "Shipped";
+            if (progress < 90) return "Out for Delivery";
+            return "Delivered";
+        }
+
+        function cancelOrder(orderIndex) {
+            let orders = JSON.parse(localStorage.getItem("orders")) || [];
+            orders.splice(orderIndex, 1);
+            localStorage.setItem("orders", JSON.stringify(orders));
+            loadOrders();
+        }
+
+        window.onload = loadOrders;
+    </script>
+    
+    <style>
+        .order-card { border: 1px solid #ddd; padding: 15px; margin: 10px; border-radius: 8px; background: #fff; }
+        .order-header, .order-items { margin-bottom: 10px; }
+        .order-product { display: flex; align-items: center; gap: 10px; }
+        .order-product img { border-radius: 5px; }
+        .tracking progress { width: 100%; height: 10px; }
+        button { background: red; color: white; padding: 5px; border: none; cursor: pointer; }
+    </style>
+</body>
+</html>

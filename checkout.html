@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"content="width=device-width,initial-scale=1.0">
+        <title>Checkout | Shopnest</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <link rel="stylesheet" href="C:\Users\hp\OneDrive\Desktop\html\styles\style.css">
+    </head>
+<header>
+    <img src="C:\Users\hp\OneDrive\Desktop\html\img\logo.png"alt="shopnest logo" class="logo">
+    <nav>
+        <ul class="nav-links">
+        <li><a href="home.html">HOME</a></li> 
+       <li><a href="products.html">PRODUCTS</a></li>
+       <li><a href="checkout.html">CHECKOUT</a></li>
+        <li><a href="admin.html">ADMIN</a></li> 
+       <li><a href="cart.html"><i class="fas fa-shopping-bag"></i></a></li>
+    </ul>
+    </nav>
+ </header>
+
+    <body>
+
+        <h2>CHECKOUT</h2>
+    
+        <form id="checkoutForm">
+            <label for="name">FULL NAME:</label>
+            <input type="text" id="name" required>
+           
+            <label for="mobile number">MOBILE NUMBER:</label>
+            <input type="text" id="mobile" required>
+    
+            <label for="address">FULL ADDRESS:</label>
+            <input type="text" id="address" required>
+    
+            <label for="payment">Select Payment Method:</label>
+            <select id="payment" onchange="showPaymentOptions()">
+                <option value="">--Choose Payment Method--</option>
+                <option value="gpay">Google Pay</option>
+                <option value="phonepe">PhonePe</option>
+                <option value="cod">Cash on Delivery</option>
+            </select>
+    
+            <div id="paymentOptions" style="display: none;">
+                <button type="button" onclick="placeOrder()">Place Order</button>
+            </div>
+        </form>
+
+        <style>
+        .checkout-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.15);
+            width: 450px;
+            text-align: center;
+            margin: auto;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        h2 {
+            color: #222;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: center;
+        }
+        
+        label {
+            font-weight: 600;
+            width: 100%;
+            text-align: left;
+            font-size: 15px;
+            color: #444;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease-in-out;
+            outline: none;
+            background-color: #f9f9f9;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            border-color: #ff5722;
+            box-shadow: 0px 0px 6px rgba(255, 87, 34, 0.4);
+            background-color: #fff;
+        }
+        
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+        
+        .place-order-btn {
+            background: linear-gradient(to right, #ff5722, #ff784e);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            width: 100%;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .place-order-btn:hover {
+            background: linear-gradient(to right, #e64a19, #ff5722);
+            transform: scale(1.05);
+            box-shadow: 0px 5px 10px rgba(255, 87, 34, 0.3);
+        }
+        
+        @media screen and (max-width: 480px) {
+            .checkout-container {
+                width: 90%;
+                padding: 20px;
+            }
+        
+            input, textarea, select {
+                font-size: 13px;
+                padding: 10px;
+            }
+        
+            .place-order-btn {
+                font-size: 14px;
+                padding: 12px;
+            }
+        }
+      </style>        
+        
+      <script src="C:\Users\hp\OneDrive\Desktop\html\scripts\script.js"></script>
+    </body>
+</html>
+    

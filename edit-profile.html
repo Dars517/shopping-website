@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .profile-container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h2>Edit Profile</h2>
+        <form id="updateProfileForm">
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label>Mobile Number:</label>
+                <input type="text" id="phone" required>
+            </div>
+            <button type="submit">Update Profile</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("name").value = localStorage.getItem("name") || "";
+            document.getElementById("email").value = localStorage.getItem("email") || "";
+            document.getElementById("phone").value = localStorage.getItem("phone") || "";
+
+            document.getElementById("updateProfileForm").addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                localStorage.setItem("name", document.getElementById("name").value);
+                localStorage.setItem("email", document.getElementById("email").value);
+                localStorage.setItem("phone", document.getElementById("phone").value);
+
+                alert("Profile Updated!");
+                window.location.href = "user-account.html"; // Redirect back to user account
+            });
+        });
+    </script>
+</body>
+</html>
